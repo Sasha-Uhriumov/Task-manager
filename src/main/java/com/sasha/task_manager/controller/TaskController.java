@@ -2,6 +2,7 @@ package com.sasha.task_manager.controller;
 
 import com.sasha.task_manager.dto.CreateTaskDTO;
 import com.sasha.task_manager.dto.ResponseTaskDTO;
+import com.sasha.task_manager.dto.UpdateTaskDTO;
 import com.sasha.task_manager.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,14 @@ public class TaskController {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseTaskDTO> getTask(@PathVariable long id) {
         ResponseTaskDTO task = taskService.getTaskById(id);
+        return ResponseEntity.ok(task);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ResponseTaskDTO> updateTaskById(@PathVariable long id,
+                                                          @RequestBody UpdateTaskDTO dto) {
+
+        ResponseTaskDTO task = taskService.updateTaskById(id, dto);
         return ResponseEntity.ok(task);
     }
 }
