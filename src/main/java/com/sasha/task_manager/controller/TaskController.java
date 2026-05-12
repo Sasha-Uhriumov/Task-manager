@@ -6,10 +6,7 @@ import com.sasha.task_manager.service.TaskService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/task")
@@ -22,5 +19,11 @@ public class TaskController {
     public ResponseEntity<ResponseTaskDTO> createTask(@RequestBody CreateTaskDTO dto) {
         ResponseTaskDTO task = taskService.createTask(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(task);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseTaskDTO> getTask(@PathVariable long id) {
+        ResponseTaskDTO task = taskService.getTaskById(id);
+        return ResponseEntity.ok(task);
     }
 }
