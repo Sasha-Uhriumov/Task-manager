@@ -77,4 +77,17 @@ public class TaskService {
         log.info("Task with id {} successfully updated", id);
         return TaskMapper.fromEntity(updatedTask);
     }
+
+    public void deleteTaskById(long id) {
+        log.info("Attempt to delete task with id {}", id);
+
+        TaskEntity task = taskRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Task with id {} not found", id);
+                    return new CustomTaskNotFoundException("Task not found with id " + id);
+                });
+
+        taskRepository.delete(task);
+        log.info("Task with id {} successfully deleted", id);
+    }
 }
