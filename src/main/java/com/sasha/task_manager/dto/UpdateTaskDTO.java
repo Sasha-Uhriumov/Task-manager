@@ -13,4 +13,8 @@ public class UpdateTaskDTO {
     @NotBlank(message = "Title must be not empty")
     @Size(min = 1, max = 200, message = "Title should be 1-200 characters")
     private String title;
+
+    @NotBlank(message = "Title must be not empty")
+    @Size(min = 1, max = 200, message = "Title should be 1-200 characters")
+    private String statusName;
 }
