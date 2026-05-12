@@ -2,6 +2,7 @@ package com.sasha.task_manager.service;
 
 import com.sasha.task_manager.dto.CreateTaskDTO;
 import com.sasha.task_manager.dto.ResponseTaskDTO;
+import com.sasha.task_manager.dto.UpdateTaskDTO;
 import com.sasha.task_manager.entity.StatusEntity;
 import com.sasha.task_manager.entity.TaskEntity;
 import com.sasha.task_manager.exception.CustomStatusNotFoundException;
@@ -52,5 +53,28 @@ public class TaskService {
                 });
 
         return TaskMapper.fromEntity(existTask);
+    }
+
+    public ResponseTaskDTO updateTaskById(Long id, UpdateTaskDTO dto) {
+        log.info("Attempt to update task with id {}", id);
+
+        TaskEntity task = taskRepository.findById(id)
+                .orElseThrow(() -> {
+                    log.warn("Task with id {} not found", id);
+                    return new CustomTaskNotFoundException("Task not found with id " + id);
+                });
+
+        StatusEntity statusEntity = statusRepository.findByStatusNameIgnoreCase(dto.getStatusName())
+                .orElseThrow(() -> {
+                    log.warn("Status with name {} not found", dto.getStatusName());
+                    return new CustomStatusNotFoundException("Status not found with name " + dto.getStatusName());
+                });
+
+        TaskMapper.updateTaskFromDTO(task, dto, statusEntity);
+
+        TaskEntity updatedTask = taskRepository.save(task);
+
+        log.info("Task with id {} successfully updated", id);
+        return TaskMapper.fromEntity(updatedTask);
     }
 }
