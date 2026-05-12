@@ -43,6 +43,7 @@ public class TaskService {
 
 
     public ResponseTaskDTO getTaskById(Long id) {
+        log.info("Attempt to find task by id {}", id);
 
         TaskEntity existTask = taskRepository.findById(id)
                 .orElseThrow(() -> {
@@ -50,6 +51,6 @@ public class TaskService {
                     return new CustomTaskNotFoundException("Task not found with id " + id);
                 });
 
-        return TaskMapper.fromEntity(existTask)
+        return TaskMapper.fromEntity(existTask);
     }
 }
