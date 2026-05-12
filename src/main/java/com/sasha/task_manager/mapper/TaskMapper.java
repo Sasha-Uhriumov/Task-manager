@@ -13,11 +13,11 @@ public class TaskMapper {
         return task;
     }
 
-    public static ResponseTaskDTO fromEntity(TaskEntity task, String status) {
+    public static ResponseTaskDTO fromEntity(TaskEntity task) {
         ResponseTaskDTO dto = new ResponseTaskDTO();
         dto.setId(task.getId());
         dto.setTitle(task.getTitle());
-        dto.setStatus(status);
+        dto.setStatus(task.getStatusEntity().getStatusName());
         return dto;
     }
 
