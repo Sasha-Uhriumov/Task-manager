@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface StatusRepository extends JpaRepository<StatusRepository, Long> {
+public interface StatusRepository extends JpaRepository<StatusEntity, Long> {
 
     Optional<StatusEntity> findByStatusNameIgnoreCase(String statusName);
 }
