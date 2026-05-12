@@ -3,6 +3,7 @@ package com.sasha.task_manager.mapper;
 import com.sasha.task_manager.dto.CreateTaskDTO;
 import com.sasha.task_manager.dto.ResponseTaskDTO;
 import com.sasha.task_manager.dto.UpdateTaskDTO;
+import com.sasha.task_manager.entity.StatusEntity;
 import com.sasha.task_manager.entity.TaskEntity;
 
 public class TaskMapper {
@@ -21,7 +22,8 @@ public class TaskMapper {
         return dto;
     }
 
-    public static void updateTaskFromDTO(TaskEntity task, UpdateTaskDTO dto) {
+    public static void updateTaskFromDTO(TaskEntity task, UpdateTaskDTO dto, StatusEntity statusName) {
         task.setTitle(dto.getTitle());
+        task.setStatusEntity(statusName);
     }
 }
